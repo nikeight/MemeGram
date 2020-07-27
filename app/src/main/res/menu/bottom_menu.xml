@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/homeBottom"
+        android:icon="@drawable/ic_home"
+        android:title=""/>
+
+    <item android:id="@+id/searchBottom"
+        android:icon="@drawable/ic_searchnew"
+        android:title=""/>
+
+    <item android:id="@+id/addPostBottom"
+        android:icon="@drawable/ic_add"
+        android:title=""/>
+
+    <item android:id="@+id/heartBottom"
+        android:icon="@drawable/heart"
+        android:title=""/>
+
+    <item android:id="@+id/profileBottom"
+        android:icon="@drawable/ic_profile"
+        android:title=""/>
+
+
+</menu>

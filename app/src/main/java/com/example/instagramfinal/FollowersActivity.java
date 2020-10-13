@@ -23,6 +23,7 @@ import Adapter.UserAdapter;
 
 public class FollowersActivity extends AppCompatActivity {
 
+    // Init
     private String id;
     private String title;
     private List<String> idList;
@@ -53,7 +54,7 @@ public class FollowersActivity extends AppCompatActivity {
         });
 
 
-
+        // Connecting to Java File
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -85,7 +86,6 @@ public class FollowersActivity extends AppCompatActivity {
                 for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
                     idList.add(snapshot.getKey());
                 }
-
                 Log.d("LikesList",idList.toString());
                 showUsers();
             }

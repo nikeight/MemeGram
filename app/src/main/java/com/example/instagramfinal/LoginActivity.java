@@ -25,6 +25,7 @@ public class LoginActivity extends AppCompatActivity {
     private TextView register_user;
     private Button loginNowButton;
 
+    // Firebase
     private FirebaseAuth mAuth;
 
 

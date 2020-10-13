@@ -72,6 +72,7 @@ public class RegisterAcitivity extends AppCompatActivity {
                 String textName = name.getText().toString();
                 String textPassword = password.getText().toString();
 
+                // To check if the fields are Empty or not.
                 if (TextUtils.isEmpty(textUsername) || TextUtils.isEmpty(textEmail)
                         || TextUtils.isEmpty(textName) || TextUtils.isEmpty(textPassword)){
                     Toast.makeText(RegisterAcitivity.this, "Enter the Credentials Properly", Toast.LENGTH_SHORT).show();
@@ -101,6 +102,7 @@ public class RegisterAcitivity extends AppCompatActivity {
                 userMap.put("bio","");
                 userMap.put("imageurl","default");
 
+                // To add the data and to replace the fragment aat the same time.
                 mRootRef.child("Users").child(mAuth.getCurrentUser().getUid()).setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {

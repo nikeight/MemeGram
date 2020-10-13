@@ -34,6 +34,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     private List<Notification> mNotifications;
 
     public NotificationAdapter(Context mContext, List<Notification> mNotifications) {
+        // Constructor
         this.mContext = mContext;
         this.mNotifications = mNotifications;
     }
@@ -41,7 +42,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
+            // Inflate the layouts.
         View view= LayoutInflater.from(mContext).inflate(R.layout.notification_item,parent,false);
         return new NotificationAdapter.ViewHolder(view);
     }
@@ -79,6 +80,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                     mContext.getSharedPreferences("PROFILE",Context.MODE_PRIVATE)
                             .edit().putString("profileId",notification.getUserid()).apply();
 
+                    // To call the other Fragment.
                     ((FragmentActivity)mContext).getSupportFragmentManager()
                             .beginTransaction().replace(R.id.fragment_container, new ProfileFragment()).commit();
 
@@ -149,6 +151,3 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
     }
 }
-
-
-// When I misclick the calling IV of jr itemView id from a contact RV instead of Aayush's itemView id. Jr-

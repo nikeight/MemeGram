@@ -20,6 +20,7 @@ import Fragments.SearchFragment;
 
 public class StartMainActivity extends AppCompatActivity {
 
+    // Init.
     private BottomNavigationView bottomNavigationView;
     private Fragment selectorFragment;
 
@@ -34,6 +35,7 @@ public class StartMainActivity extends AppCompatActivity {
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
 
+        // Nav bar
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {

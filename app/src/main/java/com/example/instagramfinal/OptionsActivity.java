@@ -28,6 +28,8 @@ public class OptionsActivity extends AppCompatActivity {
         settings= findViewById(R.id.settings);
         logout= findViewById(R.id.logout);
         toolbar= findViewById(R.id.toolbar);
+        darkMode= findViewById(R.id.darkMode);
+
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Options");
@@ -53,6 +55,13 @@ public class OptionsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(OptionsActivity.this, "DarkMode is Coming Soon", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(OptionsActivity.this, "More Settings Are Coming Soon", Toast.LENGTH_SHORT).show();
             }
         });
     }

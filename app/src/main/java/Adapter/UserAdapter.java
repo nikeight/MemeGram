@@ -41,6 +41,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     private boolean isFragment;
 
     public UserAdapter(Context mContext, List<User> mUser, boolean isFragment) {
+        // Constructor
         this.mContext = mContext;
         this.mUser = mUser;
         this.isFragment = isFragment;
@@ -51,7 +52,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
+        // To inflate the Layouts.
         View view= LayoutInflater.from(mContext).inflate(R.layout.user_item,parent,false);
         return new UserAdapter.ViewHolder(view);
     }
@@ -89,9 +90,9 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
                     FirebaseDatabase.getInstance().getReference().child("Follow")
                             .child((firebaseUser.getUid())).child("followers").child(firebaseUser.getUid()).setValue(true);
 
-                    // If SomeOne follows you on Insta.
-
+                    // If SomeOne follows you on.
                     addNotification(user.getId());
+
                 }else{
 
                     FirebaseDatabase.getInstance().getReference().child("Follow")
@@ -104,7 +105,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
             }
         });
 
-        // To check if it is called bty fragment or Activity.
+        // To check if it is called by fragment or Activity.
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -135,6 +136,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         map.put("postid","");
         map.put("isPost",false);
 
+        // To Add the data to DB
         FirebaseDatabase.getInstance().getReference().child("Notifications").child(firebaseUser.getUid())
                 .push().setValue(map);
     }
@@ -177,7 +179,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
             super(itemView);
 
             // Linking XML file to java File.
-
             imageProfile = itemView.findViewById(R.id.image_profile);
             username = itemView.findViewById(R.id.username);
             name = itemView.findViewById(R.id.fullname);

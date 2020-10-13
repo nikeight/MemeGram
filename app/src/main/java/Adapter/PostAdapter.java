@@ -39,7 +39,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
     private FirebaseUser firebaseUser;
 
-    public PostAdapter(Context mContext, List<Post> mPosts) {
+    public PostAdapter (Context mContext, List<Post> mPosts) {
+        // Constructor
         this.mContext = mContext;
         this.mPosts = mPosts;
         firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
@@ -49,6 +50,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        // To inflate the layouts.
         View view = LayoutInflater.from(mContext).inflate(R.layout.post_item,parent,false);
         return new PostAdapter.ViewHolder(view);
     }
@@ -57,12 +59,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
 
 
-        // Creating a Post object and Storing position in it. To show up at right position.
-
+        // Creating a Post object and Storing position in it.
         final Post post= mPosts.get(position);
 
         // To load the Image. Picasso lib.
-
         Picasso.get().load(post.getImageUrl()).into(holder.postImage);
         holder.description.setText(post.getDescription());
 
@@ -74,8 +74,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 // As we want and to show up the values of Users.
                 User user =dataSnapshot.getValue(User.class);
 
-                //As if there is no ImageURl app get Crashed.
-
+                //As if there is no ImageURl.
                 if (user.getImageurl().equals("default")){
                     holder.imageProfile.setImageResource(R.mipmap.ic_launcher);
 
@@ -139,11 +138,11 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             }
         });
 
+        // To save the Image/Post.
         holder.save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                // See copy paste leads to error.
                 // Saves -> User -> postId -> save the data.
                 if (holder.save.getTag().equals("save")){
                     FirebaseDatabase.getInstance().getReference().child("Saves")
@@ -160,15 +159,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             @Override
             public void onClick(View v) {
 
-                // If it doesn't work change profileid to profileId.
-
                 // Back button causing the app to get close not directing to the Home page of the App.
-
                 mContext.getSharedPreferences("PROFILE",Context.MODE_PRIVATE).edit().putString("profileId",post.getPublisher()).apply();
 
+                // To call the other fragments.
                 ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container,new ProfileFragment()).commit();
-                // putting Commit is necessary.
             }
         });
 
@@ -176,12 +172,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             @Override
             public void onClick(View v) {
 
-
                 mContext.getSharedPreferences("PROFILE",Context.MODE_PRIVATE).edit().putString("profileId",post.getPublisher()).apply();
 
                 ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container,new ProfileFragment()).commit();
-                // putting Commit is necessary.
             }
         });
 
@@ -189,13 +183,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             @Override
             public void onClick(View v) {
 
-                // If it doesn't work change profileid to profileId.
-
                 mContext.getSharedPreferences("PROFILE",Context.MODE_PRIVATE).edit().putString("profileId",post.getPublisher()).apply();
 
                 ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container,new ProfileFragment()).commit();
-                // putting Commit is necessary.
             }
         });
 
@@ -227,11 +218,11 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     public int getItemCount() {
 
         return  mPosts.size();
-        // If everything setUp make it to normal again.
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
+        // Init
         public ImageView imageProfile;
         public ImageView postImage;
         public ImageView like;
@@ -269,6 +260,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         FirebaseDatabase.getInstance().getReference().child("Likes").child(postId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                // If Liked
                      if (dataSnapshot.child(firebaseUser.getUid()).exists()){
                          imageView.setImageResource(R.drawable.ic_liked);
                          imageView.setTag("liked");
@@ -291,6 +283,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         FirebaseDatabase.getInstance().getReference().child("Likes").child(postId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                // To get the no.of Likes.
                 text.setText(dataSnapshot.getChildrenCount() + " likes");
             }
 
@@ -306,7 +299,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         FirebaseDatabase.getInstance().getReference().child("Comment").child(postId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
+                // To get the no.of Comments
                 text.setText(dataSnapshot.getChildrenCount() + " comments");
             }
 
@@ -326,6 +319,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         map.put("postid",postId);
         map.put("isPost",true);
 
+        // Adding Data to the DB
         FirebaseDatabase.getInstance().getReference().child("Notifications").child(firebaseUser.getUid())
                 .push().setValue(map);
 
@@ -337,6 +331,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        // Is the Post is Saved.
                         if (dataSnapshot.child(postid).exists()){
                             image.setImageResource(R.drawable.ic_save_black);
                             image.setTag("saved");

@@ -40,6 +40,7 @@ import java.util.Map;
 
 public class PostActivity extends AppCompatActivity {
 
+    // Init
     private TextView post;
     private ImageView close;
     private ImageView image_added;
@@ -84,6 +85,7 @@ public class PostActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        // To check if the result code is from Crop Activity Only.
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK){
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             imageUri = result.getUri();
@@ -147,6 +149,7 @@ public class PostActivity extends AppCompatActivity {
                     // For HashTags.
                     DatabaseReference mHastTagRef= FirebaseDatabase.getInstance().getReference().child("HashTags");
                     List<String> hashTags = description.getHashtags();
+
                     // Why List? if there are more than one HashTags in a description.
                     if (!hashTags.isEmpty()){
                         for (String tag: hashTags){
@@ -164,6 +167,7 @@ public class PostActivity extends AppCompatActivity {
                     progressBar.setVisibility(View.INVISIBLE);
                     gotoStartMainActivity();
                     finish();
+
                     //So user don't get back to the post Activity.
                 }
             }).addOnFailureListener(new OnFailureListener() {

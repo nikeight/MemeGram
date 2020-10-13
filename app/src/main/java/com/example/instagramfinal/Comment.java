@@ -9,7 +9,8 @@ public class Comment {
     public Comment() {
     }
 
-    public Comment(String id, String publisher, String comment) {
+    public Comment (String id, String publisher, String comment) {
+        // Constructor
         this.id = id;
         this.publisher = publisher;
         this.comment = comment;

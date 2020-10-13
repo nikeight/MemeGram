@@ -38,10 +38,12 @@ import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.util.HashMap;
 
+import Fragments.ProfileFragment;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class EditProfileActivity extends AppCompatActivity {
 
+    // Init
     private TextView changePhoto;
     private CircleImageView image_profile;
     private ImageView close;
@@ -78,10 +80,9 @@ public class EditProfileActivity extends AppCompatActivity {
         bio = findViewById(R.id.bio);
         progressBar= findViewById(R.id.progressBar);
 
-        // Init Other variables;
+        // Firebase
         storageRef= FirebaseStorage.getInstance().getReference().child("Uploads");
 
-        // you can jump to the file while clicking the object while holding ctrl.
 
         // To get the previous data.
         FirebaseDatabase.getInstance().getReference().child("Users").child(fUser.getUid()).addValueEventListener(new ValueEventListener() {
@@ -125,7 +126,11 @@ public class EditProfileActivity extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressBar.setVisibility(View.VISIBLE);
                 updateProfile();
+                // Here is slight change
+                Intent intent = new Intent(EditProfileActivity.this, ProfileFragment.class);
+                startActivity(intent);
             }
         });
     }
@@ -139,6 +144,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
         FirebaseDatabase.getInstance().getReference().child("Users").child(fUser.getUid()).updateChildren(map);
         //progressbar to Stop here.
+        progressBar.setVisibility(View.INVISIBLE);
     }
 
     public void uploadImage(){

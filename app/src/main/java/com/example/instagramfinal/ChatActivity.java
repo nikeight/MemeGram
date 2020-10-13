@@ -6,6 +6,8 @@ import android.os.Bundle;
 
 public class ChatActivity extends AppCompatActivity {
 
+    // To be Developed.
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

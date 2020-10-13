@@ -41,6 +41,7 @@ public class CommentAdapter  extends RecyclerView.Adapter<CommentAdapter.ViewHol
     private FirebaseUser mUSer;
 
     public CommentAdapter(Context mContext, List<Comment> mComments,String postId) {
+        // Constructor
         this.mContext = mContext;
         this.mComments = mComments;
         this.postId= postId;
@@ -49,6 +50,7 @@ public class CommentAdapter  extends RecyclerView.Adapter<CommentAdapter.ViewHol
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        // Inflate new layout.
         View view = LayoutInflater.from(mContext).inflate(R.layout.comment_item,parent,false);
         return new CommentAdapter.ViewHolder(view);
     }
@@ -61,8 +63,9 @@ public class CommentAdapter  extends RecyclerView.Adapter<CommentAdapter.ViewHol
         final Comment comment = mComments.get(position);
         holder.comment.setText(comment.getComment());
 
-        // To get  the username and profile Image we have to call a addEventListener.
-        FirebaseDatabase.getInstance().getReference().child("Users").child(comment.getPublisher()).addValueEventListener(new ValueEventListener() {
+        // To get  the username and profile Image
+        FirebaseDatabase.getInstance().getReference().child("Users").child(comment.getPublisher())
+                .addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
@@ -103,6 +106,7 @@ public class CommentAdapter  extends RecyclerView.Adapter<CommentAdapter.ViewHol
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
+                // Alert Dialog Starts.
                 if (comment.getPublisher().endsWith(mUSer.getUid())){
                     AlertDialog alertDialog = new AlertDialog.Builder(mContext).create();
                     alertDialog.setTitle("Do you wan to delete the Comment?");
@@ -112,6 +116,7 @@ public class CommentAdapter  extends RecyclerView.Adapter<CommentAdapter.ViewHol
                             dialog.dismiss();
                         }
                     });
+                    // To remove the user from the database.
                     alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Yes", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(final DialogInterface dialog, int which) {
@@ -144,6 +149,7 @@ public class CommentAdapter  extends RecyclerView.Adapter<CommentAdapter.ViewHol
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
+        // Init.
         public CircleImageView imageProfile;
         public TextView username;
         public TextView comment;
@@ -157,3 +163,4 @@ public class CommentAdapter  extends RecyclerView.Adapter<CommentAdapter.ViewHol
         }
     }
 }
+

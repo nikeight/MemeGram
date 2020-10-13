@@ -26,6 +26,7 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder> 
     private List<Post> mPosts;
 
     public PhotoAdapter(Context mContext, List<Post> mPosts) {
+        // Constructor
         this.mContext = mContext;
         this.mPosts = mPosts;
     }
@@ -33,6 +34,7 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder> 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        // To inflate the layouts
         View view = LayoutInflater.from(mContext).inflate(R.layout.photo_item,parent,false);
         return new PhotoAdapter.ViewHolder(view);
     }
@@ -49,6 +51,7 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder> 
                 mContext.getSharedPreferences("PREFS",Context.MODE_PRIVATE).edit().putString("postid",post.getPostid()).apply();
                 // Edit to add the data, apply to run the statement, putString to put the data.
 
+                // To call the other fragment.
                 ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container,new PhotoDetailFragment()).commit();
             }
